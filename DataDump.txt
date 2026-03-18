@@ -1,0 +1,87 @@
+Alihan Ozkan
+alihanozkan.engr@gmail.com | (571) 776-6415 | Arlington, VA | LinkedIn
+PROFESSIONAL SUMMARY
+Technical Program/Project Manager with 6+ years of experience delivering IT infrastructure, InfoSec, M&A, and
+construction projects across enterprise environments. Skilled in Agile and Waterfall methodologies, vendor and
+stakeholder management, and leading cross-functional teams. Proven track record of improving efficiency, driving
+digital transformation, and ensuring timely, high-quality project delivery.
+WORK EXPERIENCE
+Lithia & Driveway Feb. 2023 – Mar. 2026
+Technical Program & Project Manager
+Remote
+●
+Lead over 11 dealership acquisition projects, coordinating IT integration and minimizing operational
+downtime.
+●
+Manage hardware and software refresh programs with budgets exceeding $5M+, improving infrastructure
+efficiency.
+●
+Oversee InfoSec and GRC initiatives, enhancing network security and compliance standards.
+●
+Direct IT construction projects from planning to delivery, including vendor management, procurement, and
+scheduling.
+●
+Drove a 40% increase in project delivery efficiency by implementing a centralized enterprise PM system and
+onboarding 30+ managers. Enhanced organizational transparency by creating automated executive-level
+dashboards for critical reporting.
+●
+Developed and managed comprehensive project budgets up to $2M, establishing cost baselines and maintaining
+expenses within a 5% variance.
+●
+Orchestrated complex software handoffs between vendors, cross-functional engineering teams, and internal
+customers, improving user adoption rates by 100% through targeted training and clear communication plans.
+Prosegur Security USA IT Project & Quality Manager Sep. 2020 – Dec. 2022
+Herndon, VA - Remote
+●
+Delivered IT infrastructure, networking, and cloud migration projects for HQ, branch, and airport offices
+nationwide.
+●
+Introduced Agile methodology across teams, leading daily standups and biweekly sprints to streamline delivery
+cycles.
+●
+Authored comprehensive PM documentation (charters, schedules, budgets, risk logs, SOPs) to standardize
+processes.
+●
+Built Power BI and SQL dashboards to report KPIs and project health to directors and C-level executives.
+●
+Improved vendor management, reducing costs through performance analysis and contract optimization.
+Silent-Aire Feb. 2020 – May 2022
+Project Coordinator Ashburn, VA
+●
+Supported construction and commissioning of critical infrastructure systems in data center facilities.
+●
+Coordinated with engineering and operations teams on the installation of air handling units.
+EDUCATION & CERTIFICATIONS
+●
+●
+●
+●
+Master of Science, Project Management (Agile Lean Concentration) — Harrisburg University of Science
+and Technology
+Bachelor of Science, Textile Engineering — Istanbul Technical University
+Certified ScrumMaster (CSM) — Scrum Alliance
+Power BI Desktop Certification — Coursera Project Network
+TECHNICAL SKILLS
+●
+●
+●
+●
+●
+●
+●
+Project Management: Agile (Scrum), Waterfall
+PM Tools: Smartsheet, Jira, MS Project, ADO
+AI & Automation: ChatGPT, Copilot
+Microsoft: Excel, Teams, Visio, SharePoint, Power BI, Azure, Intune
+ITSM: ServiceNow, ServiceDesk Plus, Freshservice, Helix
+Networking & MDM: Cisco Meraki, Silver Peak, Samsung Knox, IBM MaaS360
+Other Tools: Python, SQL, WordPress, Wix, FlutterFlow, Adobe Acrobat, Datto RMM
+ADDITIONAL INFORMATION
+●
+●
+●
+●
+Work Authorization: Eligible to work in the U.S.
+Languages: English, Turkish
+Other Certifications: OSHA-10, NFPA 70E
+Interests: Music production, GYM, Snowboarding, Travelling, Cooking.

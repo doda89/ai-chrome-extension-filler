@@ -1,0 +1,138 @@
+{
+  "identity": {
+    "full_name": "Alihan Ozkan",
+    "email": "alihanozkan.engr@gmail.com",
+    "phone": "(571) 776-6415",
+    "location": "Arlington, VA",
+    "linkedin": "LinkedIn"
+  },
+  "summary": "Technical Program/Project Manager with 6+ years of experience delivering IT infrastructure, InfoSec, M&A, and construction projects across enterprise environments. Skilled in Agile and Waterfall methodologies, vendor and stakeholder management, and leading cross-functional teams. Proven track record of improving efficiency, driving digital transformation, and ensuring timely, high-quality project delivery.",
+  "experience": [
+    {
+      "company": "Lithia & Driveway",
+      "title": "Technical Program & Project Manager",
+      "location": "Remote",
+      "period": {
+        "start": "Feb. 2023",
+        "end": "Mar. 2026"
+      },
+      "highlights": [
+        "Led over 11 dealership acquisition projects, coordinating IT integration and minimizing operational downtime.",
+        "Managed hardware and software refresh programs with budgets exceeding $5M+, improving infrastructure efficiency.",
+        "Oversaw InfoSec and GRC initiatives, enhancing network security and compliance standards.",
+        "Directed IT construction projects from planning to delivery, including vendor management, procurement, and scheduling.",
+        "Drove a 40% increase in project delivery efficiency by implementing a centralized enterprise PM system and onboarding 30+ managers.",
+        "Created automated executive-level dashboards for critical reporting and organizational transparency.",
+        "Developed and managed project budgets up to $2M while maintaining expenses within a 5% variance.",
+        "Orchestrated complex software handoffs across vendors, engineering teams, and internal customers, improving user adoption through training and communication."
+      ]
+    },
+    {
+      "company": "Prosegur Security USA",
+      "title": "IT Project & Quality Manager",
+      "location": "Herndon, VA - Remote",
+      "period": {
+        "start": "Sep. 2020",
+        "end": "Dec. 2022"
+      },
+      "highlights": [
+        "Delivered IT infrastructure, networking, and cloud migration projects for HQ, branch, and airport offices nationwide.",
+        "Introduced Agile methodology across teams, leading daily standups and biweekly sprints to streamline delivery cycles.",
+        "Authored PM documentation including charters, schedules, budgets, risk logs, and SOPs to standardize processes.",
+        "Built Power BI and SQL dashboards to report KPIs and project health to directors and C-level executives.",
+        "Improved vendor management and reduced costs through performance analysis and contract optimization."
+      ]
+    },
+    {
+      "company": "Silent-Aire",
+      "title": "Project Coordinator",
+      "location": "Ashburn, VA",
+      "period": {
+        "start": "Feb. 2020",
+        "end": "May 2022"
+      },
+      "highlights": [
+        "Supported construction and commissioning of critical infrastructure systems in data center facilities.",
+        "Coordinated with engineering and operations teams on the installation of air handling units."
+      ]
+    }
+  ],
+  "education": [
+    {
+      "degree": "Master of Science",
+      "focus": "Project Management (Agile Lean Concentration)",
+      "institution": "Harrisburg University of Science and Technology"
+    },
+    {
+      "degree": "Bachelor of Science",
+      "focus": "Textile Engineering",
+      "institution": "Istanbul Technical University"
+    }
+  ],
+  "certifications": [
+    "Certified ScrumMaster (CSM) — Scrum Alliance",
+    "Power BI Desktop Certification — Coursera Project Network",
+    "OSHA-10",
+    "NFPA 70E"
+  ],
+  "skills": {
+    "project_management": [
+      "Agile (Scrum)",
+      "Waterfall"
+    ],
+    "pm_tools": [
+      "Smartsheet",
+      "Jira",
+      "MS Project",
+      "ADO"
+    ],
+    "ai_automation": [
+      "ChatGPT",
+      "Copilot"
+    ],
+    "microsoft": [
+      "Excel",
+      "Teams",
+      "Visio",
+      "SharePoint",
+      "Power BI",
+      "Azure",
+      "Intune"
+    ],
+    "itsm": [
+      "ServiceNow",
+      "ServiceDesk Plus",
+      "Freshservice",
+      "Helix"
+    ],
+    "networking_mdm": [
+      "Cisco Meraki",
+      "Silver Peak",
+      "Samsung Knox",
+      "IBM MaaS360"
+    ],
+    "other_tools": [
+      "Python",
+      "SQL",
+      "WordPress",
+      "Wix",
+      "FlutterFlow",
+      "Adobe Acrobat",
+      "Datto RMM"
+    ]
+  },
+  "additional": {
+    "work_authorization": "Eligible to work in the U.S.",
+    "languages": [
+      "English",
+      "Turkish"
+    ],
+    "interests": [
+      "Music production",
+      "GYM",
+      "Snowboarding",
+      "Travelling",
+      "Cooking"
+    ]
+  }
+}

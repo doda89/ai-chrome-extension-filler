@@ -16,13 +16,23 @@ For each supported field, the extension adds a small `AI Fill` button next to th
 3. Nearby parent text
 4. A default fallback prompt
 
-The extension then sends that prompt to a local Ollama server at `http://localhost:11434/api/generate` using the `llama3.1:8b` model and fills the field with a realistic but fake answer.
+The extension then sends that prompt to a local Ollama server at `http://localhost:11434/api/generate` using the `llama3.1:8b` model and fills the field with an answer.
+
+The project now supports data-grounded answers:
+
+- `DataDump.txt` stores the raw source text
+- `profile-data.json` stores a structured version of that source text
+- the extension reads `profile-data.json` before calling Ollama
+- if a field clearly maps to known facts such as name, email, phone, location, work authorization, or languages, the extension returns the exact value directly
+- otherwise it retrieves the most relevant profile details from `profile-data.json` and includes them in the Ollama prompt so answers stay grounded in the source data instead of drifting into guesses
 
 ## Files
 
 - `manifest.json`: Chrome extension manifest and permissions
 - `background.js`: Ollama request handling in the extension service worker
 - `content.js`: Field detection, label extraction, button injection, and form filling
+- `DataDump.txt`: Raw candidate data source
+- `profile-data.json`: Structured candidate profile used for grounded answers
 - `styles.css`: Minimal inline button styling
 - `sample-test-page.html`: Local form page for manual testing
 
