@@ -1,6 +1,18 @@
 const OLLAMA_ENDPOINT = "http://localhost:11434/api/generate";
 const OLLAMA_MODEL = "llama3.1:8b";
 const PROFILE_DATA_PATH = "profile-data.json";
+const MISSING_VALUE_TOKENS = new Set([
+  "",
+  "n a",
+  "na",
+  "none",
+  "not provided",
+  "not available",
+  "unknown",
+  "null",
+  "undefined",
+  "tbd"
+]);
 
 let profileDataPromise;
 
@@ -32,32 +44,45 @@ function includesAny(text, keywords) {
   return keywords.some((keyword) => text.includes(keyword));
 }
 
+function hasMeaningfulValue(value) {
+  if (Array.isArray(value)) {
+    return value.some((item) => hasMeaningfulValue(item));
+  }
+
+  const normalizedValue = normalizeText(String(value || ""));
+  return Boolean(normalizedValue) && !MISSING_VALUE_TOKENS.has(normalizedValue);
+}
+
+function getMeaningfulValue(value, formatter = (input) => input) {
+  return hasMeaningfulValue(value) ? formatter(value) : "";
+}
+
 function resolveKnownField(question, profile) {
   const normalizedQuestion = normalizeText(question);
   const { identity, additional } = profile;
 
   if (includesAny(normalizedQuestion, ["full name", "your name", "applicant name", "name"])) {
-    return identity.full_name;
+    return getMeaningfulValue(identity.full_name);
   }
 
   if (includesAny(normalizedQuestion, ["email", "e mail"])) {
-    return identity.email;
+    return getMeaningfulValue(identity.email);
   }
 
   if (includesAny(normalizedQuestion, ["phone", "mobile", "telephone", "cell"])) {
-    return identity.phone;
+    return getMeaningfulValue(identity.phone);
   }
 
   if (includesAny(normalizedQuestion, ["location", "city", "state", "where are you based", "address"])) {
-    return identity.location;
+    return getMeaningfulValue(identity.location);
   }
 
   if (includesAny(normalizedQuestion, ["work authorization", "authorized", "eligible to work", "sponsorship", "visa"])) {
-    return additional.work_authorization;
+    return getMeaningfulValue(additional.work_authorization);
   }
 
   if (includesAny(normalizedQuestion, ["language", "languages"])) {
-    return additional.languages.join(", ");
+    return getMeaningfulValue(additional.languages, (values) => values.join(", "));
   }
 
   return "";
@@ -66,15 +91,26 @@ function resolveKnownField(question, profile) {
 function buildFactEntries(profile) {
   const entries = [];
 
-  entries.push({
-    category: "summary",
-    text: profile.summary
-  });
+  if (hasMeaningfulValue(profile.summary)) {
+    entries.push({
+      category: "summary",
+      text: profile.summary
+    });
+  }
 
-  entries.push({
-    category: "identity",
-    text: `Candidate name: ${profile.identity.full_name}. Email: ${profile.identity.email}. Phone: ${profile.identity.phone}. Location: ${profile.identity.location}.`
-  });
+  const identityFacts = [
+    hasMeaningfulValue(profile.identity.full_name) ? `Candidate name: ${profile.identity.full_name}.` : "",
+    hasMeaningfulValue(profile.identity.email) ? `Email: ${profile.identity.email}.` : "",
+    hasMeaningfulValue(profile.identity.phone) ? `Phone: ${profile.identity.phone}.` : "",
+    hasMeaningfulValue(profile.identity.location) ? `Location: ${profile.identity.location}.` : ""
+  ].filter(Boolean);
+
+  if (identityFacts.length > 0) {
+    entries.push({
+      category: "identity",
+      text: identityFacts.join(" ")
+    });
+  }
 
   profile.experience.forEach((role) => {
     entries.push({
@@ -90,22 +126,42 @@ function buildFactEntries(profile) {
     });
   });
 
-  entries.push({
-    category: "certifications",
-    text: `Certifications: ${profile.certifications.join("; ")}.`
-  });
+  if (hasMeaningfulValue(profile.certifications)) {
+    entries.push({
+      category: "certifications",
+      text: `Certifications: ${profile.certifications.join("; ")}.`
+    });
+  }
 
   Object.entries(profile.skills).forEach(([section, values]) => {
+    if (!hasMeaningfulValue(values)) {
+      return;
+    }
+
     entries.push({
       category: `skills_${section}`,
       text: `${section.replace(/_/g, " ")}: ${values.join(", ")}.`
     });
   });
 
-  entries.push({
-    category: "additional",
-    text: `Work authorization: ${profile.additional.work_authorization}. Languages: ${profile.additional.languages.join(", ")}. Interests: ${profile.additional.interests.join(", ")}.`
-  });
+  const additionalFacts = [
+    hasMeaningfulValue(profile.additional.work_authorization)
+      ? `Work authorization: ${profile.additional.work_authorization}.`
+      : "",
+    hasMeaningfulValue(profile.additional.languages)
+      ? `Languages: ${profile.additional.languages.join(", ")}.`
+      : "",
+    hasMeaningfulValue(profile.additional.interests)
+      ? `Interests: ${profile.additional.interests.join(", ")}.`
+      : ""
+  ].filter(Boolean);
+
+  if (additionalFacts.length > 0) {
+    entries.push({
+      category: "additional",
+      text: additionalFacts.join(" ")
+    });
+  }
 
   return entries;
 }
@@ -149,7 +205,7 @@ function buildPrompt(question, profileContext) {
     "You are filling out a form for a real candidate profile.",
     "Use the provided profile data whenever it answers the question.",
     "Prefer exact facts from the profile over invented information.",
-    "If the profile does not directly answer the question, write a concise answer that is still consistent with the profile.",
+    "If the profile does not directly answer the question, or a needed value is missing, write a concise made-up answer that is still consistent with the profile.",
     "If the field expects a short value such as name, email, phone, or location, return only that value.",
     "",
     "Relevant profile data:",
