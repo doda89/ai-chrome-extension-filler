@@ -206,6 +206,7 @@ function buildPrompt(question, profileContext) {
     "Use the provided profile data whenever it answers the question.",
     "Prefer exact facts from the profile over invented information.",
     "If the profile does not directly answer the question, or a needed value is missing, write a concise made-up answer that is still consistent with the profile.",
+    "Never answer with placeholder text such as none, n/a, not provided, unknown, or null.",
     "If the field expects a short value such as name, email, phone, or location, return only that value.",
     "",
     "Relevant profile data:",
@@ -217,15 +218,45 @@ function buildPrompt(question, profileContext) {
   ].join("\n");
 }
 
-async function generateAnswer(question) {
-  const profile = await loadProfileData();
-  const exactAnswer = resolveKnownField(question, profile);
+function buildFallbackPrompt(question, profileContext) {
+  return [
+    "You are filling out a form for a candidate profile.",
+    "The available profile data does not directly contain the requested value.",
+    "Generate a realistic answer based on the question and keep it consistent with the profile context.",
+    "Do not answer with placeholder text such as none, n/a, not provided, unknown, or null.",
+    "If the field expects a short value, return a short value only.",
+    "",
+    "Profile context:",
+    profileContext,
+    "",
+    `Question: ${question}`,
+    "",
+    "Return ONLY the answer text, no explanation."
+  ].join("\n");
+}
 
-  if (exactAnswer) {
-    return exactAnswer;
+function isPlaceholderAnswer(answer) {
+  const normalizedAnswer = normalizeText(answer);
+
+  if (!normalizedAnswer) {
+    return true;
   }
 
-  const profileContext = getRelevantProfileContext(question, profile);
+  if (MISSING_VALUE_TOKENS.has(normalizedAnswer)) {
+    return true;
+  }
+
+  return includesAny(normalizedAnswer, [
+    "not provided",
+    "not available",
+    "unknown",
+    "no information",
+    "none provided",
+    "n a"
+  ]);
+}
+
+async function callOllama(prompt) {
   let response;
 
   try {
@@ -236,7 +267,7 @@ async function generateAnswer(question) {
       },
       body: JSON.stringify({
         model: OLLAMA_MODEL,
-        prompt: buildPrompt(question, profileContext),
+        prompt,
         stream: false
       })
     });
@@ -269,6 +300,30 @@ async function generateAnswer(question) {
   }
 
   return answer;
+}
+
+async function generateAnswer(question) {
+  const profile = await loadProfileData();
+  const exactAnswer = resolveKnownField(question, profile);
+
+  if (exactAnswer) {
+    return exactAnswer;
+  }
+
+  const profileContext = getRelevantProfileContext(question, profile);
+  const groundedAnswer = await callOllama(buildPrompt(question, profileContext));
+
+  if (!isPlaceholderAnswer(groundedAnswer)) {
+    return groundedAnswer;
+  }
+
+  const fallbackAnswer = await callOllama(buildFallbackPrompt(question, profileContext));
+
+  if (isPlaceholderAnswer(fallbackAnswer)) {
+    throw new Error("OLLAMA_PLACEHOLDER_ANSWER");
+  }
+
+  return fallbackAnswer;
 }
 
 chrome.runtime.onMessage.addListener((message, _sender, sendResponse) => {
