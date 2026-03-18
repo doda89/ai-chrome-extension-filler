@@ -1,0 +1,19 @@
+{
+  "manifest_version": 3,
+  "name": "AI Fill",
+  "version": "1.0.0",
+  "description": "Adds an AI Fill button next to form fields and uses Ollama to generate fake answers.",
+  "permissions": ["activeTab", "scripting"],
+  "host_permissions": ["http://localhost:11434/*", "http://127.0.0.1/*"],
+  "background": {
+    "service_worker": "background.js"
+  },
+  "content_scripts": [
+    {
+      "matches": ["<all_urls>"],
+      "js": ["content.js"],
+      "css": ["styles.css"],
+      "run_at": "document_idle"
+    }
+  ]
+}

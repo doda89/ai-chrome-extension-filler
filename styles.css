@@ -1,0 +1,23 @@
+.ai-fill-button {
+  display: inline-block;
+  margin-left: 6px;
+  padding: 4px 8px;
+  border: 1px solid #c5ced8;
+  border-radius: 6px;
+  background: #f5f7fa;
+  color: #1f2933;
+  font: 12px/1.2 -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  cursor: pointer;
+  vertical-align: middle;
+  transition: background-color 120ms ease, border-color 120ms ease;
+}
+
+.ai-fill-button:hover:not(:disabled) {
+  background: #e8eef6;
+  border-color: #8ea6c0;
+}
+
+.ai-fill-button:disabled {
+  cursor: wait;
+  opacity: 0.75;
+}
